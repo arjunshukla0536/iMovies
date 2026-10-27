@@ -1,0 +1,311 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+  }
+
+  h1,
+  h2,
+  h3,
+  .font-display {
+    font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+  }
+
+  code,
+  .font-mono {
+    font-family: 'Space Mono', monospace;
+  }
+}
+
+/* ============================================================
+   Glassmorphism Theme Tokens (Purple, Pink & Yellow - Light Mode Only)
+   ============================================================ */
+
+:root,
+[data-theme="light"],
+.light {
+  --bg-primary: #f6f4fc;
+  --bg-secondary: #eeeaf8;
+  --text-primary: #19102c;
+  --text-secondary: #534571;
+  --text-muted: #83749f;
+
+  /* Glass Surfaces (Light Frost) */
+  --glass-surface-base: rgba(255, 255, 255, 0.72);
+  --glass-surface-elevated: rgba(255, 255, 255, 0.88);
+  --glass-surface-subtle: rgba(244, 239, 255, 0.65);
+
+  /* Glass Borders */
+  --glass-border-light: rgba(192, 132, 252, 0.35);
+  --glass-border-highlight: rgba(236, 72, 153, 0.45);
+  --glass-border-yellow: rgba(234, 179, 8, 0.5);
+
+  /* Highlights & Shadows */
+  --glass-specular-top: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.95);
+  --glass-specular-sharp: inset 0 1px 0 0 rgba(255, 255, 255, 1);
+  --glass-shadow-ambient: 0 14px 38px -8px rgba(124, 58, 237, 0.08), 0 4px 14px rgba(236, 72, 153, 0.04);
+  --glass-shadow-glow: 0 0 30px -4px rgba(236, 72, 153, 0.22);
+
+  /* Navigation & Form Inputs */
+  --glass-nav-bg: rgba(255, 255, 255, 0.8);
+  --glass-nav-border: rgba(192, 132, 252, 0.32);
+  --glass-input-bg: rgba(255, 255, 255, 0.85);
+  --glass-input-border: rgba(192, 132, 252, 0.4);
+  --glass-input-text: #19102c;
+  --glass-input-placeholder: #8b7ca8;
+
+  /* Button Tokens */
+  --btn-primary-bg: linear-gradient(135deg, #7c3aed 0%, #db2777 50%, #eab308 100%);
+  --btn-primary-text: #ffffff;
+  --btn-secondary-bg: rgba(255, 255, 255, 0.75);
+  --btn-secondary-border: rgba(192, 132, 252, 0.4);
+  --btn-secondary-text: #2e1065;
+
+  /* Aurora Orbs Opacity */
+  --aurora-opacity-purple: 0.16;
+  --aurora-opacity-pink: 0.18;
+  --aurora-opacity-yellow: 0.20;
+
+  /* Scrollbar */
+  --scrollbar-track: rgba(233, 226, 248, 0.85);
+  --scrollbar-thumb: rgba(168, 85, 247, 0.35);
+  --scrollbar-thumb-hover: rgba(236, 72, 153, 0.6);
+}
+
+/* ============================================================
+   Glass Utility Classes
+   ============================================================ */
+
+/* 1. Base Glass Panel */
+.glass-panel {
+  background: var(--glass-surface-base);
+  backdrop-filter: blur(20px) saturate(170%);
+  -webkit-backdrop-filter: blur(20px) saturate(170%);
+  border: 1px solid var(--glass-border-light);
+  box-shadow: var(--glass-shadow-ambient), var(--glass-specular-top);
+  color: var(--text-primary);
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 2. Elevated Glass Panel (Modals, Overlays, Floating Menus) */
+.glass-panel-elevated {
+  background: var(--glass-surface-elevated);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid var(--glass-border-highlight);
+  box-shadow: 0 25px 60px -12px rgba(124, 58, 237, 0.25), var(--glass-specular-sharp);
+  color: var(--text-primary);
+}
+
+/* 3. Subtle Glass Panel */
+.glass-panel-subtle {
+  background: var(--glass-surface-subtle);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--glass-border-light);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+}
+
+/* 4. Glass Cards with Purple / Pink / Yellow Hover Glow */
+.glass-card {
+  background: var(--glass-surface-base);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid var(--glass-border-light);
+  box-shadow: var(--glass-shadow-ambient), var(--glass-specular-top);
+  color: var(--text-primary);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+  border-color: rgba(236, 72, 153, 0.55);
+  box-shadow: 0 20px 45px -8px rgba(124, 58, 237, 0.22), 0 0 30px -4px rgba(250, 204, 21, 0.25), var(--glass-specular-sharp);
+  transform: translateY(-4px);
+}
+
+/* 5. Glass Buttons */
+.glass-btn-primary {
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  font-weight: 700;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow: 0 8px 24px -4px rgba(236, 72, 153, 0.4), inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-btn-primary:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 12px 32px -4px rgba(236, 72, 153, 0.55), 0 0 24px rgba(250, 204, 21, 0.35);
+  transform: translateY(-1.5px);
+}
+
+.glass-btn-secondary {
+  background: var(--btn-secondary-bg);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--btn-secondary-border);
+  color: var(--btn-secondary-text);
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.08), inset 0 1px 0 0 rgba(255, 255, 255, 0.3);
+  transition: all 0.25s ease;
+}
+
+.glass-btn-secondary:hover {
+  background: rgba(236, 72, 153, 0.12);
+  border-color: rgba(236, 72, 153, 0.5);
+  box-shadow: 0 6px 20px rgba(236, 72, 153, 0.2);
+  transform: translateY(-1px);
+}
+
+/* 6. Glass Inputs & Selects */
+.glass-input {
+  background: var(--glass-input-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-input-border);
+  color: var(--glass-input-text);
+  box-shadow: inset 0 2px 4px 0 rgba(124, 58, 237, 0.06);
+  transition: all 0.2s ease;
+}
+
+.glass-input::placeholder {
+  color: var(--glass-input-placeholder);
+}
+
+.glass-input:focus {
+  border-color: rgba(236, 72, 153, 0.65);
+  box-shadow: 0 0 18px -2px rgba(236, 72, 153, 0.3), inset 0 2px 4px 0 rgba(124, 58, 237, 0.08);
+  outline: none;
+}
+
+/* 7. Glass Badges & Colored Pills (Purple, Pink & Yellow) */
+.glass-pill {
+  background: var(--glass-surface-subtle);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border-light);
+  color: var(--text-secondary);
+}
+
+/* Yellow / Gold Pill */
+.glass-pill-yellow,
+.glass-pill-amber {
+  background: rgba(234, 179, 8, 0.18);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(234, 179, 8, 0.5);
+  color: #ca8a04;
+  box-shadow: 0 0 14px -2px rgba(234, 179, 8, 0.25);
+}
+
+/* Pink / Fuchsia Pill */
+.glass-pill-pink {
+  background: rgba(236, 72, 153, 0.16);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(236, 72, 153, 0.5);
+  color: #ba145e;
+  box-shadow: 0 0 14px -2px rgba(236, 72, 153, 0.25);
+}
+
+/* Purple / Violet Pill */
+.glass-pill-purple {
+  background: rgba(147, 51, 234, 0.16);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(147, 51, 234, 0.45);
+  color: #7e22ce;
+  box-shadow: 0 0 14px -2px rgba(147, 51, 234, 0.25);
+}
+
+/* 8. Top Navigation Glass */
+.glass-nav {
+  background: var(--glass-nav-bg);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid var(--glass-nav-border);
+  box-shadow: 0 10px 30px -10px rgba(124, 58, 237, 0.1);
+}
+
+/* 9. Signature Purple-Pink-Yellow Text & Gradient Accents */
+.text-gradient-tri {
+  background: linear-gradient(135deg, #7c3aed 0%, #ec4899 50%, #eab308 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.border-gradient-tri {
+  border-image: linear-gradient(135deg, #7c3aed, #ec4899, #eab308) 1;
+}
+
+/* 10. Ambient Aurora Background Orbs (Purple, Pink & Yellow) */
+@keyframes aurora-float-1 {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(45px, -35px) scale(1.1);
+  }
+}
+
+@keyframes aurora-float-2 {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-40px, 30px) scale(0.95);
+  }
+}
+
+@keyframes aurora-float-3 {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(35px, 40px) scale(1.06);
+  }
+}
+
+.aurora-orb-purple {
+  animation: aurora-float-1 18s ease-in-out infinite;
+}
+
+.aurora-orb-pink {
+  animation: aurora-float-2 22s ease-in-out infinite;
+}
+
+.aurora-orb-yellow {
+  animation: aurora-float-3 20s ease-in-out infinite;
+}
+
+/* Custom Cinema Glass Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+  backdrop-filter: blur(8px);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
